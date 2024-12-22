@@ -7,6 +7,7 @@ enum LlmModel {
   ReplicateLlama = "replicate_llama",
   Ollama = "ollama",
 }
+
 export function getModel() {
   const model = (process.env.LLM_MODEL || "").toLowerCase();
   console.log("model", model);
@@ -22,7 +23,6 @@ export function getModel() {
     return new Ollama({
       baseUrl: endpoint,
       model: "codellama",
-      format: "json",
     });
   } else {
     //default to OpenAI
@@ -30,6 +30,7 @@ export function getModel() {
     return new OpenAI({
       modelName: "gpt-3.5-turbo-16k",
       openAIApiKey: process.env.OPENAI_API_KEY,
+      temperature: 0.7,
     });
   }
 }

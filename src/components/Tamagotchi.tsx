@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { death, idle } from "./tamagotchiFrames";
 import { MdLocalHospital } from "react-icons/md";
 import { INTERACTION } from "@/app/utils/interaction";
+import { ChatWindow } from "./ui/chat-window";
 
 const DEFAULT_STATUS = ":)";
 export function Tamagotchi() {
@@ -269,94 +270,97 @@ export function Tamagotchi() {
     needForBath += "💩";
   }
   return (
-    <Card key="1" className="w-full max-w-xl p-6 space-y-6 bg-white">
-      <CardHeader className="items-center space-y-2">
-        <CardTitle className="text-xl">AI Tamago</CardTitle>
-        <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
-          Care for your virtual pet!
-        </CardDescription>
-        <div className="flex justify-center">
-          <div className="flex items-center justify-center h-48 overflow-hidden">
-            {!checkingStatus && (
-              <div>
-                <pre className="text-center">{animation[frameIndex]}</pre>
-                <div>{needForBath}</div>
-              </div>
-            )}
+    <div className="flex flex-col md:flex-row gap-6 w-full max-w-6xl p-6">
+      <Card key="1" className="w-full max-w-xl p-6 space-y-6 bg-white">
+        <CardHeader className="items-center space-y-2">
+          <CardTitle className="text-xl">AI Tamago</CardTitle>
+          <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
+            Care for your virtual pet!
+          </CardDescription>
+          <div className="flex justify-center">
+            <div className="flex items-center justify-center h-48 overflow-hidden">
+              {!checkingStatus && (
+                <div>
+                  <pre className="text-center">{animation[frameIndex]}</pre>
+                  <div>{needForBath}</div>
+                </div>
+              )}
 
-            {checkingStatus && (
-              <pre
-                className="text-left overflow-x-hidden overflow-y-auto whitespace-normal"
-                style={{ maxHeight: "100%", maxWidth: "100%" }}
-              >
-                Age: {tamagotchiState.age || "No age"} <br />
-                Happiness: {tamagotchiState.happiness || "No happiness"} <br />
-                Hunger: {tamagotchiState.hunger || "No hunger"} <br />
-                Health: {tamagotchiState.health || "No health"} <br />
-                🚽: {tamagotchiState.poop || "👍"} <br />
-                {'"' + tamagotchiState.comment || "No comments" + '"'}
-              </pre>
-            )}
+              {checkingStatus && (
+                <pre
+                  className="text-left overflow-x-hidden overflow-y-auto whitespace-normal"
+                  style={{ maxHeight: "100%", maxWidth: "100%" }}
+                >
+                  Age: {tamagotchiState.age || "No age"} <br />
+                  Happiness: {tamagotchiState.happiness || "No happiness"} <br />
+                  Hunger: {tamagotchiState.hunger || "No hunger"} <br />
+                  Health: {tamagotchiState.health || "No health"} <br />
+                  🚽: {tamagotchiState.poop || "👍"} <br />
+                  {'"' + tamagotchiState.comment || "No comments" + '"'}
+                </pre>
+              )}
+            </div>
           </div>
-        </div>
-      </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-4">
-        <Button
-          onClick={feedTamagotchi}
-          className="flex items-center justify-center"
-          variant="outline"
-          disabled={isInteracting}
-        >
-          <FaBowlFood /> &nbsp; Feed
-        </Button>
-        <Button
-          onClick={playWithTamagotchi}
-          className="flex items-center justify-center"
-          variant="outline"
-          disabled={isInteracting}
-        >
-          <FaBasketball /> &nbsp; Play
-        </Button>
-        <Button
-          disabled={isInteracting}
-          onClick={handleBath}
-          className="flex items-center justify-center"
-          variant="outline"
-        >
-          <FaBath />
-          &nbsp; Clean
-        </Button>
-        <Button
-          disabled={isInteracting}
-          onClick={handleDiscipline}
-          className="flex items-center justify-center"
-          variant="outline"
-        >
-          <FaFaceSadCry /> &nbsp; Discipline
-        </Button>
-        <Button
-          disabled={isInteracting}
-          onClick={checkStatus}
-          className="flex items-center justify-center"
-          variant="outline"
-        >
-          <FaChartArea /> &nbsp; Status
-        </Button>
-        <Button
-          disabled={isInteracting}
-          onClick={treatSickTamagotchi}
-          className="flex items-center justify-center"
-          variant="outline"
-        >
-          <MdLocalHospital /> &nbsp; Medical Care
-        </Button>
-      </CardContent>
-      <CardFooter className="py-4 dark:bg-gray-800 rounded-b-lg border-t-2 border-gray-200 dark:border-gray-700">
-        <div className="h-10 text-center text-lg font-semibold text-gray-600 dark:text-gray-400">
-          {tamaStatus}
-          {loadingStatus}
-        </div>
-      </CardFooter>
-    </Card>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-4">
+          <Button
+            onClick={feedTamagotchi}
+            className="flex items-center justify-center"
+            variant="outline"
+            disabled={isInteracting}
+          >
+            <FaBowlFood /> &nbsp; Feed
+          </Button>
+          <Button
+            onClick={playWithTamagotchi}
+            className="flex items-center justify-center"
+            variant="outline"
+            disabled={isInteracting}
+          >
+            <FaBasketball /> &nbsp; Play
+          </Button>
+          <Button
+            disabled={isInteracting}
+            onClick={handleBath}
+            className="flex items-center justify-center"
+            variant="outline"
+          >
+            <FaBath />
+            &nbsp; Clean
+          </Button>
+          <Button
+            disabled={isInteracting}
+            onClick={handleDiscipline}
+            className="flex items-center justify-center"
+            variant="outline"
+          >
+            <FaFaceSadCry /> &nbsp; Discipline
+          </Button>
+          <Button
+            disabled={isInteracting}
+            onClick={checkStatus}
+            className="flex items-center justify-center"
+            variant="outline"
+          >
+            <FaChartArea /> &nbsp; Status
+          </Button>
+          <Button
+            disabled={isInteracting}
+            onClick={treatSickTamagotchi}
+            className="flex items-center justify-center"
+            variant="outline"
+          >
+            <MdLocalHospital /> &nbsp; Medical Care
+          </Button>
+        </CardContent>
+        <CardFooter className="py-4 dark:bg-gray-800 rounded-b-lg border-t-2 border-gray-200 dark:border-gray-700">
+          <div className="h-10 text-center text-lg font-semibold text-gray-600 dark:text-gray-400">
+            {tamaStatus}
+            {loadingStatus}
+          </div>
+        </CardFooter>
+      </Card>
+      <ChatWindow />
+    </div>
   );
 }

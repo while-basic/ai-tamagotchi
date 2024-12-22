@@ -11,6 +11,7 @@ export enum INTERACTION {
   BATH,
   GO_TO_HOSPITAL,
   DISCIPLINE,
+  CHAT,
   // TODO - add other types
 }
 
