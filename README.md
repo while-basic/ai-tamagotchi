@@ -1,4 +1,4 @@
-# AI Tamago 🥚🐣
+# AI Tamagotchi 🥚🐣
 A 100% local, LLM-generated and driven virtual pet with thoughts, feelings and feedback. Revive your fond memories of Tamagotchi! https://ai-tamago.fly.dev/
 
 All ascii animations are generated using chatgpt (included prompts in the repo). 
@@ -101,7 +101,7 @@ Now you are ready to test out the app locally! To do this, simply run `npm run d
 
 ## Deployment Guide
 
-Now you have played with the AI tamago locally -- it's time to deploy it somewhere more permanent so you can access it anytime! 
+Now you have played with the AI Tamagotchi locally -- it's time to deploy it somewhere more permanent so you can access it anytime! 
 
 **0. Choose which model you want to use in production**
 - If you want to test out using Chatgpt in prod, simply remove `LLM_MODEL=ollama` from `.env.local` and fill in `OPENAI_API_KEY`

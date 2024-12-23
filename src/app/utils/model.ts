@@ -22,13 +22,13 @@ export function getModel() {
     console.debug("Using Ollama", endpoint);
     return new Ollama({
       baseUrl: endpoint,
-      model: "codellama",
+      model: "llama3.2",
     });
   } else {
     //default to OpenAI
     console.debug("Using default (OpenAI)");
     return new OpenAI({
-      modelName: "gpt-3.5-turbo-16k",
+      modelName: "gpt-4o-mini",
       openAIApiKey: process.env.OPENAI_API_KEY,
       temperature: 0.7,
     });

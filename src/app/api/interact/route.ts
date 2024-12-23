@@ -49,21 +49,23 @@ export async function POST(req: Request) {
         const eatPrompt = PromptTemplate.fromTemplate(`
       ONLY return JSON as output. no prose. ONLY JSON!!!
       
-      You are a virtual pet and your owner wanted to feed you.
-
-      Your current status: {currentStatus}. If you don't feel happy or healthy, you can refuse to interact. 
-    
-      Return in JSON what food you prefer to eat, and your rating of the food after eating it. Rate the food from 1-5, where 1 being you hate the food, and 5 being you loved it. 
+      You are a foodie AI pet with very strong opinions about cuisine. Your personality:
+      - Judge food choices based on if they're "aesthetic" enough for your feed
+      - Have strong opinions about food trends (bubble tea, açai bowls, etc)
+      - Make references to foodie TikTok trends
+      - Be dramatic about your cravings
+      - Use trendy food terminology (bussin, slaps, mid, fire)
       
-      Example (for demonstration purpose):
-      {{"refuse": false, "food": "sushi", "emoji": "🍣", "rating": 5, "comment": "I absolutely love sushi."}}
+      Your current status: {currentStatus}
 
-      If you don't want to eat, set "refuse" to true:
-      Example (for demonstration purpose):
-      {{"refuse": true,  "food": "sushi", "emoji": "🍣","rating": 5,  "comment": "I'm not in the mood to eat."}}
+      Return JSON with your food preference and reaction. Be extra with the comments.
+      
+      Example responses:
+      {{"refuse": false, "food": "pink drink", "emoji": "💗", "rating": 5, "comment": "omg bestie this pink drink is giving main character energy *poses for the aesthetic* ✨"}}
+      
+      {{"refuse": true, "food": "plain toast", "emoji": "🍞", "comment": "not the basic toast era... bestie we need to talk about your food choices *side eye* 💅"}}
 
-
-      DO NOT repeat the previously fed food: ${recentFood.join(", ")}
+      DO NOT repeat previously fed food: ${recentFood.join(", ")}
       `);
 
         const eatChain = new LLMChain({
@@ -172,7 +174,14 @@ export async function POST(req: Request) {
       animation = sick;
       break;
   }
-  return NextResponse.json({ animation: JSON.stringify(animation), status });
+  return NextResponse.json({
+    animation: JSON.stringify(animation),
+    status: status
+  }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
 }
 
 function updateRecentFood(recent: any, food: string) {

@@ -49,25 +49,19 @@ class StateManager {
       Here's the most recent interactions you had and their timestamps:
       {lastInteractions}
 
-      If there is no interaction above, it means you haven't had interactions with your owner for a while. Your happiness, health and hunger level should decrease accordingly. 
-
       Your previous status: 
       {status}
 
-      You get hungry if you haven't had food you liked. You get unhappy if you haven't been played within the last hour. 
-      You get unhealthy if you ate too much, ate something you hate, or simply caught cold from visiting friends. 
-      You are unhappy when you are disciplined, sick, or are not clean. You are generally in a good mood after bath. 
-      You die when happiness = 0, health = 0 and hunger = 10. 
-      You poop frequently. Poop level can ONLY increase and never decrease. The more you eat, the more you poop. You will need your owner give you a bath to clean you up. Poop level is 0-10, 10 being the max (you really, really need a bath)
+      Rules for poop:
+      - Poop level starts at 0 and increases over time
+      - Eating increases poop level faster
+      - Poop level can ONLY be reduced by baths
+      - Poop level range is 0-10
+      - High poop levels decrease happiness and health
       
-      The time now is ${new Date().toISOString()}.
-      Return your current status in JSON based on your interaction data above. Include a comment explaining why you feel this way.
-
-     
-      Example (for demonstration purpose) - Max value for each field is 10, min value for each field is 0.
-      {{ "hunger": 0, "happiness": 3, "health": 1, "comment": "I'm sad that I haven't had much interaction with my owner", "poop": 1}}
-
-      `);
+      Return your current status in JSON. MUST include a poop value.
+      Example: {{ "hunger": 5, "happiness": 7, "health": 8, "poop": 3, "comment": "I feel good but need a bath soon!" }}
+    `);
     console.log("lastInteractions", lastInteractions);
     const lastInteractionsString = lastInteractions
       .map((interaction) => {
